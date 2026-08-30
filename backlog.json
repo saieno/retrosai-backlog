@@ -1,0 +1,28 @@
+{
+ "channel": "retrosaieno",
+ "entries": [],
+ "generated_ts": 1787232804,
+ "page_size": 60,
+ "schema": 1,
+ "site": "RetroSai Backlog",
+ "stats": {
+  "art": 0,
+  "art_box": 0,
+  "art_cart": 0,
+  "art_none": 0,
+  "corrupt_lines": 0,
+  "edits_applied": 0,
+  "entries": 0,
+  "first_ts": 0,
+  "last_ts": 0,
+  "open": 0,
+  "open_votes": 0,
+  "platforms": 0,
+  "played": 0,
+  "skipped": 0,
+  "unresolved": 0,
+  "vote_events": 0,
+  "votes": 0
+ },
+ "tagline": "What chat voted for next."
+}

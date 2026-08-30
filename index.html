@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="robots" content="index,follow">
+<title>RetroSai Backlog</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f2b134'/%3E%3Cg fill='%230d0f13'%3E%3Crect x='6' y='7' width='13' height='3' rx='1.5'/%3E%3Crect x='6' y='14' width='19' height='3' rx='1.5'/%3E%3Crect x='6' y='21' width='9' height='3' rx='1.5'/%3E%3Ccircle cx='24' cy='8.5' r='2.5'/%3E%3C/g%3E%3C/svg%3E">
+<style>
+
+/* RetroSai Backlog - what chat voted for next.
+   ===========================================================================
+   Third page of a family: the achievements site, the shelves site, and this.
+   Same room, same palette, same type as ArcadeTokens\site\index.html - the
+   colours below are a deliberate COPY of that file's :root rather than a shared
+   stylesheet, because these are standalone static pages whose whole point is
+   that they make ZERO network requests. No CDN, no web font, no remote image.
+   Keep the two in step by hand.
+
+   Where the shelves site is a wall of boxes to browse, this one is a ranked
+   list to read: the thing a viewer wants is "where is my game, and how far off
+   the top is it". So the cover art rides beside the row instead of standing on
+   a shelf, and the number on the left is the whole point of the page.
+   =========================================================================== */
+
+:root{
+  --bg:#0b0e12; --panel:#171b22; --panel2:#1d222b; --line:#2a313d;
+  --ink:#eef1f5; --ink2:#a7b1bf; --ink3:#6f7a8a;
+  --accent:#5cc8ff; --gold:#f2b134; --good:#5fd08a; --dim:#8c7f6a;
+
+  --radius:14px; --gap:20px;
+  --cover:96px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font:400 18px/1.5 "Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  padding-bottom:64px;
+}
+a{color:inherit;text-decoration:none}
+a.link{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+h1,h2,h3{margin:0;font-weight:650;letter-spacing:-.01em}
+h2{font-size:1.35rem}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+header.top{
+  position:sticky;top:0;z-index:30;background:rgba(11,14,18,.94);
+  border-bottom:1px solid var(--line);backdrop-filter:blur(8px);
+}
+header.top .wrap{display:flex;align-items:center;gap:20px;height:78px}
+.brand{display:flex;align-items:center;gap:12px;font-size:1.3rem;font-weight:650}
+.brand .mark{
+  width:38px;height:38px;border-radius:11px;background:var(--gold);
+  display:grid;place-items:center;flex:0 0 auto
+}
+.brand .mark svg{width:23px;height:23px;display:block}
+.brand .thin{color:var(--ink2);font-weight:400}
+.spacer{flex:1}
+.who{display:flex;align-items:center;gap:10px;color:var(--ink2);font-size:.95rem}
+input[type=search],button{
+  font:inherit;color:var(--ink);background:var(--panel2);
+  border:1px solid var(--line);border-radius:10px;padding:10px 14px
+}
+input[type=search]{min-width:min(320px,52vw)}
+input:focus-visible,button:focus-visible,a:focus-visible{
+  outline:2px solid var(--accent);outline-offset:2px}
+button{cursor:pointer}
+button:hover{border-color:#3d4757}
+main{padding-top:28px}
+.panel{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:24px;margin-bottom:var(--gap)
+}
+.muted{color:var(--ink2)}
+.dim{color:var(--ink3)}
+.tiny{font-size:.85rem}
+
+.snapshot{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;
+  background:#1b2028;border:1px solid var(--line);border-left:4px solid var(--gold);
+  border-radius:10px;padding:12px 16px;color:var(--ink2);font-size:.92rem;
+  margin-bottom:var(--gap)}
+.snapshot b{color:var(--ink);font-weight:600}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;
+  margin-bottom:var(--gap)}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:20px 22px}
+.stat .n{font-size:2.5rem;font-weight:700;line-height:1.05;letter-spacing:-.02em;
+  overflow-wrap:anywhere}
+.stat .n.small{font-size:1.4rem;line-height:1.2;padding-top:.3rem}
+.stat .l{color:var(--ink2);font-size:.95rem;margin-top:6px}
+.stat .s{color:var(--ink3);font-size:.85rem;margin-top:2px}
+.stat.accent .n{color:var(--accent)} .stat.gold .n{color:var(--gold)}
+.stat.good .n{color:var(--good)}
+
+.sectionhead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:0 0 14px}
+.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:16px}
+
+/* ---- the board ---------------------------------------------------------- */
+.board{display:flex;flex-direction:column;gap:10px}
+.entry{
+  display:flex;align-items:stretch;gap:16px;background:var(--panel2);
+  border:1px solid var(--line);border-radius:12px;padding:12px 16px 12px 12px;
+}
+.entry:hover{border-color:#41506a;background:#212734}
+.entry .rank{
+  width:2.6rem;flex:0 0 auto;text-align:right;color:var(--ink3);
+  font-variant-numeric:tabular-nums;font-weight:700;font-size:1.5rem;
+  align-self:center;letter-spacing:-.03em
+}
+.entry.p1 .rank{color:var(--gold)} .entry.p2 .rank{color:#cfd6e0}
+.entry.p3 .rank{color:#c98b4b}
+.entry .body{flex:1;min-width:0;display:flex;flex-direction:column;
+  justify-content:center;gap:4px}
+.entry .t{font-weight:650;font-size:1.06rem;overflow-wrap:anywhere}
+.entry .m{color:var(--ink3);font-size:.85rem}
+.entry .votes{flex:0 0 auto;align-self:center;text-align:right;min-width:92px}
+.entry .votes .v{color:var(--accent);font-weight:700;font-size:1.5rem;
+  font-variant-numeric:tabular-nums;line-height:1.1}
+.entry .votes .w{color:var(--ink3);font-size:.78rem}
+.bar{height:6px;border-radius:99px;background:#0b0d11;overflow:hidden;margin-top:4px}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.tag{border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:.72rem;
+  text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);white-space:nowrap;
+  display:inline-block}
+.tag.played{color:#0e2417;background:var(--good);border-color:var(--good);
+  font-weight:650}
+.tag.skipped{color:var(--ink3)}
+
+/* retired rows: still readable, visibly out of the race */
+.entry.retired{opacity:.72;background:#161a21}
+.entry.retired .votes .v{color:var(--ink2)}
+.entry.retired .rank{color:var(--ink3);font-size:1.05rem}
+
+/* ---- the cover ----------------------------------------------------------
+   Same object as a box on the shelves site, shrunk and stood upright beside
+   the row. A game with no art gets the SAME designed blank case the shelf
+   draws - never a broken image, never an empty gap. */
+.cover{
+  position:relative;height:var(--cover);aspect-ratio:var(--ar,.75);flex:0 0 auto;
+  align-self:center;background:#0c0f14;border-radius:2px 4px 4px 2px;
+  box-shadow:3px 5px 9px -5px rgba(0,0,0,.9);container-type:inline-size;
+  overflow:hidden
+}
+.cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+  display:block}
+.cover .face{
+  position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(101deg,
+    rgba(255,255,255,.22) 0 1px, rgba(255,255,255,.08) 1px 2.5%,
+    rgba(255,255,255,0) 15%, rgba(0,0,0,0) 66%, rgba(0,0,0,.38) 100%);
+  box-shadow:inset 0 1px 0 rgba(255,236,208,.18), inset 0 0 0 1px rgba(0,0,0,.6);
+}
+.cover .sleeve{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  background:linear-gradient(157deg, hsl(var(--hue,215) 17% 27%) 0%,
+             hsl(var(--hue,215) 20% 15%) 62%, hsl(var(--hue,215) 22% 11%) 100%);
+}
+.cover .band{height:13%;min-height:7px;flex:0 0 auto;
+  background:linear-gradient(180deg, hsl(var(--hue,215) 48% 46%),
+             hsl(var(--hue,215) 45% 33%))}
+.cover .ttl{
+  flex:1;min-height:0;display:flex;align-items:center;justify-content:center;
+  padding:6% 8%;text-align:center;font-weight:650;color:#e9edf3;
+  text-shadow:0 1px 3px rgba(0,0,0,.7);line-height:1.14;overflow:hidden;
+  overflow-wrap:anywhere;hyphens:auto;font-size:clamp(7px, 11cqw, 13px)
+}
+.cover .sys{flex:0 0 auto;padding:0 8% 7%;text-align:center;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:hsl(var(--hue,215) 30% 72%);opacity:.8;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;font-size:clamp(5px, 5.4cqw, 9px)}
+.cover.cartart img{left:7%;right:7%;top:9%;width:86%;height:70%;
+  filter:drop-shadow(0 6px 8px rgba(0,0,0,.65))}
+
+.empty{color:var(--ink2);padding:6px 0}
+.howto{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;
+  margin-top:6px}
+.howto .card{background:var(--panel2);border:1px solid var(--line);
+  border-radius:12px;padding:16px 18px}
+.howto .card b{display:block;margin-bottom:4px}
+.howto .card span{color:var(--ink2);font-size:.9rem}
+.cost{color:var(--gold);font-weight:650}
+footer.foot{color:var(--ink3);font-size:.85rem;padding:26px 0 0;
+  border-top:1px solid var(--line);margin-top:var(--gap)}
+
+@media (max-width:760px){
+  body{font-size:17px}
+  .wrap{padding:0 16px}
+  header.top .wrap{height:auto;padding-top:14px;padding-bottom:14px;flex-wrap:wrap}
+  .panel{padding:18px}
+  :root{--cover:74px}
+  .entry{gap:11px;padding:10px 12px}
+  .entry .rank{width:1.9rem;font-size:1.2rem}
+  .entry .votes{min-width:64px}
+  .entry .votes .v{font-size:1.2rem}
+  .stat .n{font-size:2rem}
+  input[type=search]{min-width:100%}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+
+</style>
+</head>
+<body>
+<script id="sitedata" type="application/json">{"channel":"retrosaieno","entries":[],"generated_ts":1787232804,"page_size":60,"schema":1,"site":"RetroSai Backlog","stats":{"art":0,"art_box":0,"art_cart":0,"art_none":0,"corrupt_lines":0,"edits_applied":0,"entries":0,"first_ts":0,"last_ts":0,"open":0,"open_votes":0,"platforms":0,"played":0,"skipped":0,"unresolved":0,"vote_events":0,"votes":0},"tagline":"What chat voted for next."}</script>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./">
+      <span class="mark" aria-hidden="true"><svg viewBox="0 0 32 32"><g fill="#0d0f13"><rect x="6" y="7" width="13" height="3" rx="1.5"/><rect x="6" y="14" width="19" height="3" rx="1.5"/><rect x="6" y="21" width="9" height="3" rx="1.5"/><circle cx="24" cy="8.5" r="2.5"/></g></svg></span>
+      <span>RetroSai <span class="thin">Backlog</span></span>
+    </a>
+    <div class="spacer"></div>
+    <div class="who" id="who"></div>
+  </div>
+</header>
+<main class="wrap">
+
+<div class="snapshot" id="snapshot"></div>
+
+<section class="stats" id="stats"></section>
+
+<section>
+  <div class="sectionhead">
+    <h2>Up for a vote</h2>
+    <span class="muted tiny" id="boardsub"></span>
+  </div>
+  <div class="controls">
+    <input id="q" type="search" placeholder="Find a game..." autocomplete="off"
+           aria-label="Search the backlog">
+  </div>
+  <div id="board" class="board"></div>
+  <div id="more" style="margin-top:16px"></div>
+</section>
+
+<section id="retiredwrap" hidden>
+  <div class="sectionhead">
+    <h2>Off the board</h2>
+    <span class="muted tiny" id="retiredsub"></span>
+  </div>
+  <div id="retired" class="board"></div>
+</section>
+
+<section class="panel">
+  <h2>How a game gets on this list</h2>
+  <div class="howto">
+    <div class="card">
+      <b>Redeem <span class="cost">Backlog Vote</span></b>
+      <span>A channel-point reward on the stream. Type the game you want and it
+      lands here. Unrecognised titles are refunded.</span>
+    </div>
+    <div class="card">
+      <b>Spend <span class="cost">Tokens</span></b>
+      <span><code>!buy backlog &lt;game&gt;</code> in chat. Tokens are the
+      channel's own currency &mdash; you earn them just for being here.</span>
+    </div>
+    <div class="card">
+      <b>Wrong game?</b>
+      <span><code>!backlogedit &lt;game&gt;</code> re-points your most recent
+      vote, free, within 15 minutes.</span>
+    </div>
+    <div class="card">
+      <b>See it in chat</b>
+      <span><code>!backlogs</code> reads out the current leaders. This page is a
+      snapshot; chat is always live.</span>
+    </div>
+  </div>
+</section>
+
+<footer class="foot" id="foot"></footer>
+</main>
+<script>
+
+/* The published data blob. arcade_publish_backlog.py splices backlog.json in
+   here; nothing on this page is fetched, so the page renders identically with
+   the network unplugged.
+
+   READ TOLERANTLY. Three shapes have to work:
+     - {"entries":[{title,platform,votes,voters,first_ts,last_ts,status}, ...]}
+       the materialised backlog.json - what the publisher actually splices
+     - {"standings":[...]}  the arcade_backlog.arcade_backlog_aggregate() shape,
+       which is what the demo renderer has to hand
+     - a positional array per game, the way the shelves site used to publish
+   Anything missing has a sane default. A page cached in someone's browser must
+   not break when the blob grows a field. */
+var NODE = document.getElementById('sitedata');
+var DATA = JSON.parse(NODE.textContent);
+
+function q(sel, root){ return (root||document).querySelector(sel); }
+function el(tag, cls, text){
+  var node = document.createElement(tag);
+  if (cls) node.className = cls;
+  if (text !== undefined && text !== null) node.textContent = String(text);
+  return node;
+}
+function num(v){ return (v === null || v === undefined) ? '0' : Number(v).toLocaleString(); }
+function plural(n, one, many){ return num(n) + ' ' + (Number(n) === 1 ? one : many); }
+
+/* Dates are formatted against the SNAPSHOT, never the reader's clock: this page
+   does not update itself, so anything phrased as "2h ago" would quietly become
+   a lie. Same rule the shelves and achievements sites use. */
+function stampDate(t){
+  if (!t) return '';
+  return new Date(t * 1000).toLocaleDateString(undefined,
+    {day:'numeric', month:'short', year:'numeric'});
+}
+function stampFull(t){
+  if (!t) return '';
+  return new Date(t * 1000).toLocaleString();
+}
+
+/* One stable colour per system, derived from its name, so a console looks the
+   same here as it does on the shelves site and no colour table is maintained. */
+function hueOf(name){
+  var h = 0, s = String(name || '');
+  for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 360;
+  return h;
+}
+function systemLabel(p){ return p || 'Unknown system'; }
+
+/* How wide a case is relative to its height, per system. A COPY of the table in
+   the shelves pages (see the long note there) - it is what stops a Game Boy
+   placeholder being drawn with the proportions of an N64 box. Real art
+   overrides this the moment it loads. */
+var METRICS = [
+  [/neo ?geo ?pocket|wonderswan|game ?gear|\blynx\b|n-?gage/,  .78],
+  [/neo ?geo/,                                                 .68],
+  [/playstation ?portable|\bpsp\b/,                            .58],
+  [/playstation ?vita|\bps ?vita\b/,                           .78],
+  [/playstation ?[45]|\bps[45]\b/,                             .80],
+  [/playstation ?3|\bps3\b/,                                   .87],
+  [/playstation ?2|\bps2\b/,                                   .70],
+  [/playstation|\bpsx\b|\bps1\b/,                             1.00],
+  [/dreamcast/,                                               1.00],
+  [/saturn ?jp|saturn ?\(j|saturn ?japan/,                    1.00],
+  [/saturn/,                                                   .60],
+  [/sega ?cd|mega ?cd/,                                        .66],
+  [/turbografx ?-?cd|turbo ?cd|pc ?engine ?cd|pc-?fx|3do|cd-?i/, .52],
+  [/master system|mark ?iii/,                                  .71],
+  [/genesis|mega ?drive|32x|sg-?1000/,                         .71],
+  [/game ?boy ?advance|\bgba\b/,                              1.00],
+  [/game ?boy/,                                               1.00],
+  [/\b3ds\b|nintendo ?ds|\bnds\b|\bdsi\b/,                    1.12],
+  [/switch/,                                                  1.00],
+  [/wii ?u|\bwii\b/,                                           .71],
+  [/gamecube|\bgcn\b/,                                         .71],
+  [/nintendo ?64|\bn64\b/,                                    1.37],
+  [/super ?famicom|\bsfc\b/,                                   .55],
+  [/super nintendo|\bsnes\b/,                                 1.37],
+  [/famicom ?disk/,                                            .97],
+  [/famicom/,                                                 1.40],
+  [/nintendo entertainment|\bnes\b/,                           .73],
+  [/xbox/,                                                     .71],
+  [/pc ?engine|turbografx/,                                   1.00],
+  [/virtual ?boy/,                                            1.01],
+  [/jaguar|colecovision|intellivision|atari|vectrex|odyssey/,  .73],
+  [/amiga ?cd|cd32/,                                          1.00],
+  [/ms-?dos|windows|\bsteam\b|amiga|commodore|apple|\bpc\b/,   .90]
+];
+var METRIC_DEFAULT = .78;
+var metricCache = {};
+function metric(platform){
+  var key = String(platform || '');
+  if (metricCache[key] !== undefined) return metricCache[key];
+  var low = key.toLowerCase(), hit = METRIC_DEFAULT;
+  for (var i = 0; i < METRICS.length; i++) {
+    if (METRICS[i][0].test(low)) { hit = METRICS[i][1]; break; }
+  }
+  metricCache[key] = hit;
+  return hit;
+}
+
+var STATUS_OPEN = 'open';
+function isRetired(s){ return s === 'played' || s === 'skipped'; }
+
+function readEntry(raw){
+  var e = {title:'?', platform:'', votes:0, voters:0, first:0, last:0,
+           status:STATUS_OPEN, art:'', kind:''};
+  if (!raw) return e;
+  if (Object.prototype.toString.call(raw) === '[object Array]') {
+    e.title = String(raw[0] == null ? '?' : raw[0]);
+    e.platform = String(raw[1] == null ? '' : raw[1]);
+    e.votes = Number(raw[2]) || 0;
+    for (var k = 3; k < raw.length; k++) {
+      var v = raw[k];
+      if (typeof v === 'string' && /\.(webp|png|jpe?g|avif|gif)$/i.test(v)) e.art = v;
+      else if (v === 'box' || v === 'cart') e.kind = v;
+    }
+  } else {
+    e.title = String(raw.title == null ? '?' : raw.title);
+    e.platform = String(raw.platform == null ? '' : raw.platform);
+    e.votes = Number(raw.votes) || 0;
+    e.voters = Number(raw.voters) || 0;
+    e.first = Number(raw.first_ts) || 0;
+    e.last = Number(raw.last_ts) || 0;
+    e.status = String(raw.status || STATUS_OPEN).toLowerCase();
+    e.art = typeof raw.art === 'string' ? raw.art : '';
+    e.kind = raw.art_kind === 'cart' ? 'cart' : (raw.art_kind === 'box' ? 'box' : '');
+  }
+  if (e.art && !e.kind) e.kind = 'box';
+  if (e.status !== 'played' && e.status !== 'skipped') e.status = STATUS_OPEN;
+  return e;
+}
+
+var ENTRIES = null;
+function entryList(){
+  if (ENTRIES) return ENTRIES;
+  var raw = DATA.entries || DATA.standings || DATA.games || [];
+  ENTRIES = raw.map(readEntry);
+  /* The publisher already ranks these, but a hand-made or demo blob may not.
+     Sorting again is idempotent and costs nothing at this size. */
+  ENTRIES.sort(function(a, b){
+    if (isRetired(a.status) !== isRetired(b.status)) return isRetired(a.status) ? 1 : -1;
+    if (b.votes !== a.votes) return b.votes - a.votes;
+    if (a.first !== b.first) return a.first - b.first;
+    return a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1;
+  });
+  var rank = 0;
+  for (var i = 0; i < ENTRIES.length; i++) {
+    /* Rank is assigned once, over the OPEN entries only, and then kept: a
+       search that hides rows must not renumber the ones still showing. */
+    ENTRIES[i].rank = isRetired(ENTRIES[i].status) ? 0 : (++rank);
+  }
+  return ENTRIES;
+}
+
+/* Stats are published, but a blob that carries only a list still has to render:
+   everything below is recomputed when DATA.stats is absent. */
+function stats(){
+  var s = DATA.stats;
+  var list = entryList();
+  if (s && typeof s === 'object') return s;
+  var open = list.filter(function(e){ return !isRetired(e.status); });
+  var plats = {};
+  list.forEach(function(e){ if (e.platform) plats[e.platform] = 1; });
+  return {
+    entries: list.length,
+    open: open.length,
+    played: list.filter(function(e){ return e.status === 'played'; }).length,
+    skipped: list.filter(function(e){ return e.status === 'skipped'; }).length,
+    votes: list.reduce(function(a, e){ return a + e.votes; }, 0),
+    open_votes: open.reduce(function(a, e){ return a + e.votes; }, 0),
+    platforms: Object.keys(plats).length,
+    first_ts: list.reduce(function(a, e){ return (!a || (e.first && e.first < a)) ? e.first : a; }, 0),
+    last_ts: list.reduce(function(a, e){ return Math.max(a, e.last || 0); }, 0)
+  };
+}
+
+function statTile(n, label, sub, cls, small){
+  var tile = el('div', 'stat' + (cls ? ' ' + cls : ''));
+  tile.appendChild(el('div', 'n' + (small ? ' small' : ''), n));
+  tile.appendChild(el('div', 'l', label));
+  if (sub) tile.appendChild(el('div', 's', sub));
+  return tile;
+}
+
+function coverFor(e){
+  var cover = el('div', 'cover');
+  cover.style.setProperty('--ar', metric(e.platform));
+  cover.style.setProperty('--hue', hueOf(e.platform));
+  if (e.art) {
+    if (e.kind === 'cart') cover.classList.add('cartart');
+    var im = document.createElement('img');
+    im.src = e.art;
+    im.alt = e.title + ' cover art';
+    im.decoding = 'async';
+    im.loading = 'lazy';
+    function trueShape(){
+      if (im.naturalWidth > 0 && im.naturalHeight > 0 && e.kind !== 'cart') {
+        cover.style.aspectRatio = im.naturalWidth + ' / ' + im.naturalHeight;
+      }
+    }
+    if (im.complete) trueShape();
+    else im.addEventListener('load', trueShape, {once:true});
+    /* A file that did not publish must never show as a broken image: fall back
+       to the same designed blank case a game with no art gets. */
+    im.addEventListener('error', function(){
+      cover.textContent = '';
+      cover.classList.remove('cartart');
+      blankCover(cover, e);
+    }, {once:true});
+    cover.appendChild(im);
+  } else {
+    blankCover(cover, e);
+  }
+  cover.appendChild(el('div', 'face'));
+  return cover;
+}
+
+function blankCover(cover, e){
+  var sleeve = el('div', 'sleeve');
+  sleeve.appendChild(el('div', 'band'));
+  sleeve.appendChild(el('div', 'ttl', e.title));
+  sleeve.appendChild(el('div', 'sys', systemLabel(e.platform)));
+  cover.appendChild(sleeve);
+}
+
+function rowFor(e, leader){
+  var row = el('div', 'entry' + (isRetired(e.status) ? ' retired' : '')
+                   + (e.rank && e.rank < 4 ? ' p' + e.rank : ''));
+  row.appendChild(el('div', 'rank', e.rank ? e.rank : '-'));
+  row.appendChild(coverFor(e));
+
+  var body = el('div', 'body');
+  body.appendChild(el('div', 't', e.title));
+  var meta = el('div', 'm');
+  meta.appendChild(el('span', null, systemLabel(e.platform)));
+  if (e.voters) {
+    meta.appendChild(el('span', null, '  ·  from ' + plural(e.voters, 'viewer', 'viewers')));
+  }
+  if (e.first) {
+    meta.appendChild(el('span', null, '  ·  first asked for ' + stampDate(e.first)));
+  }
+  body.appendChild(meta);
+  if (isRetired(e.status)) {
+    var tag = el('span', 'tag ' + e.status, e.status === 'played' ? 'Played' : 'Skipped');
+    var hold = el('div');
+    hold.appendChild(tag);
+    body.appendChild(hold);
+  } else if (leader > 0) {
+    var bar = el('div', 'bar');
+    var fill = el('i');
+    fill.style.width = Math.max(3, Math.round((e.votes / leader) * 100)) + '%';
+    bar.appendChild(fill);
+    body.appendChild(bar);
+  }
+  row.appendChild(body);
+
+  var votes = el('div', 'votes');
+  votes.appendChild(el('div', 'v', num(e.votes)));
+  votes.appendChild(el('div', 'w', e.votes === 1 ? 'vote' : 'votes'));
+  row.appendChild(votes);
+  return row;
+}
+
+function paintChrome(){
+  document.title = DATA.site || 'RetroSai Backlog';
+  var who = q('#who');
+  who.textContent = '';
+  who.appendChild(el('span', null, DATA.tagline || 'What chat voted for next.'));
+
+  /* Either spelling of the stamp, and neither is required: a blob that carries
+     only a list still renders, it just does not claim a snapshot time. */
+  var when = stampFull(DATA.generated_ts || DATA.generated_at);
+
+  var snap = q('#snapshot');
+  snap.textContent = '';
+  snap.appendChild(el('b', null, 'What this is'));
+  snap.appendChild(el('span', null,
+    'Games chat has voted onto the pile, most-wanted first. Votes come from the '
+    + 'Backlog Vote channel-point reward and from Tokens spent in chat.'));
+  if (when) snap.appendChild(el('span', 'dim', 'Snapshot taken ' + when));
+
+  q('#foot').textContent = (DATA.site || 'RetroSai Backlog')
+    + (when ? (' - static snapshot generated ' + when) : ' - static snapshot')
+    + '. Voted for live on twitch.tv/' + (DATA.channel || 'retrosaieno')
+    + '. No live data, no tracking, no requests off this page.';
+}
+
+function paintStats(){
+  var s = stats();
+  var box = q('#stats');
+  box.textContent = '';
+  box.appendChild(statTile(num(s.open != null ? s.open : s.entries), 'games waiting',
+    'voted for, not played yet', 'gold'));
+  box.appendChild(statTile(num(s.open_votes != null ? s.open_votes : s.votes), 'votes on the board',
+    num(s.votes) + ' cast in total', 'accent'));
+  box.appendChild(statTile(num(s.platforms), 'systems', 'represented in the pile'));
+  box.appendChild(statTile(num(s.played || 0), 'played off the list',
+    (s.skipped ? num(s.skipped) + ' skipped' : 'nothing skipped'), 'good'));
+}
+
+var PAGE = Number(DATA.page_size) || 60;
+var showing = PAGE;
+var filter = '';
+
+function matching(){
+  var open = entryList().filter(function(e){ return !isRetired(e.status); });
+  if (!filter) return open;
+  var needle = filter.toLowerCase();
+  return open.filter(function(e){
+    return e.title.toLowerCase().indexOf(needle) >= 0
+        || e.platform.toLowerCase().indexOf(needle) >= 0;
+  });
+}
+
+function paintBoard(){
+  var rows = matching();
+  var board = q('#board');
+  var more = q('#more');
+  board.textContent = '';
+  more.textContent = '';
+
+  var all = entryList().filter(function(e){ return !isRetired(e.status); });
+  var leader = all.length ? all[0].votes : 0;
+
+  q('#boardsub').textContent = all.length
+    ? (plural(all.length, 'game', 'games') + ' waiting')
+    : '';
+
+  if (!all.length) {
+    /* An empty backlog is the NORMAL state of a brand-new page, so it gets a
+       real answer rather than a shrug. */
+    var panel = el('div', 'panel');
+    panel.appendChild(el('h2', null, 'Nothing on the pile yet'));
+    var p = el('div', 'empty');
+    p.appendChild(el('span', null,
+      'Nobody has voted for a game yet. Redeem Backlog Vote on the stream, or '
+      + 'type '));
+    p.appendChild(el('code', null, '!buy backlog <game>'));
+    p.appendChild(el('span', null, ' in chat, and the first game on this page is yours.'));
+    panel.appendChild(p);
+    board.appendChild(panel);
+    q('#q').disabled = true;
+    return;
+  }
+
+  if (!rows.length) {
+    board.appendChild(el('div', 'empty', 'No game on the pile matches "' + filter + '".'));
+    return;
+  }
+
+  rows.slice(0, showing).forEach(function(e){ board.appendChild(rowFor(e, leader)); });
+
+  if (rows.length > showing) {
+    var btn = el('button', null, 'Show ' + Math.min(PAGE, rows.length - showing)
+                 + ' more (' + num(rows.length - showing) + ' left)');
+    btn.addEventListener('click', function(){ showing += PAGE; paintBoard(); });
+    more.appendChild(btn);
+  }
+}
+
+function paintRetired(){
+  var rows = entryList().filter(function(e){ return isRetired(e.status); });
+  if (!rows.length) return;
+  q('#retiredwrap').hidden = false;
+  q('#retiredsub').textContent = plural(rows.length, 'game', 'games')
+    + ' played or skipped - their votes are kept';
+  var box = q('#retired');
+  box.textContent = '';
+  rows.forEach(function(e){ box.appendChild(rowFor(e, 0)); });
+}
+
+q('#q').addEventListener('input', function(ev){
+  filter = String(ev.target.value || '').trim();
+  showing = PAGE;
+  paintBoard();
+});
+
+paintChrome();
+paintStats();
+paintBoard();
+paintRetired();
+
+</script>
+</body>
+</html>
