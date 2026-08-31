@@ -204,7 +204,7 @@ footer.foot{color:var(--ink3);font-size:.85rem;padding:26px 0 0;
 </style>
 </head>
 <body>
-<script id="sitedata" type="application/json">{"channel":"retrosaieno","entries":[],"generated_ts":1787232804,"page_size":60,"schema":1,"site":"RetroSai Backlog","stats":{"art":0,"art_box":0,"art_cart":0,"art_none":0,"corrupt_lines":0,"edits_applied":0,"entries":0,"first_ts":0,"last_ts":0,"open":0,"open_votes":0,"platforms":0,"played":0,"skipped":0,"unresolved":0,"vote_events":0,"votes":0},"tagline":"What chat voted for next."}</script>
+<script id="sitedata" type="application/json">{"channel":"retrosaieno","entries":[{"art":"art/nintendo-64/conker-s-bad-fur-day.webp","art_kind":"box","first_ts":1788210616,"last_ts":1788210616,"platform":"Nintendo 64","status":"open","title":"Conker's Bad Fur Day","voters":1,"votes":1},{"art":"art/nintendo-gamecube/the-legend-of-zelda-twilight-princess.webp","art_kind":"box","first_ts":1788210724,"last_ts":1788210724,"platform":"Nintendo GameCube","status":"open","title":"The Legend of Zelda: Twilight Princess","voters":1,"votes":1}],"generated_ts":1788210802,"page_size":60,"schema":1,"site":"RetroSai Backlog","stats":{"art":2,"art_box":2,"art_cart":0,"art_none":0,"corrupt_lines":0,"edits_applied":0,"entries":2,"first_ts":1788210616,"last_ts":1788210724,"open":2,"open_votes":2,"platforms":2,"played":0,"skipped":0,"unresolved":0,"vote_events":2,"votes":2},"tagline":"What chat voted for next."}</script>
 <header class="top">
   <div class="wrap">
     <a class="brand" href="./">
@@ -252,7 +252,7 @@ footer.foot{color:var(--ink3);font-size:.85rem;padding:26px 0 0;
     </div>
     <div class="card">
       <b>Spend <span class="cost">Tokens</span></b>
-      <span><code>!buy backlog &lt;game&gt;</code> in chat. Tokens are the
+      <span><code>!spend backlog &lt;game&gt;</code> in chat. Tokens are the
       channel's own currency &mdash; you earn them just for being here.</span>
     </div>
     <div class="card">
@@ -608,7 +608,7 @@ function paintBoard(){
     p.appendChild(el('span', null,
       'Nobody has voted for a game yet. Redeem Backlog Vote on the stream, or '
       + 'type '));
-    p.appendChild(el('code', null, '!buy backlog <game>'));
+    p.appendChild(el('code', null, '!spend backlog <game>'));
     p.appendChild(el('span', null, ' in chat, and the first game on this page is yours.'));
     panel.appendChild(p);
     board.appendChild(panel);
