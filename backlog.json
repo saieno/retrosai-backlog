@@ -55,30 +55,41 @@
    "title": "Fatal Frame",
    "voters": 1,
    "votes": 1
+  },
+  {
+   "art": "art/microsoft-xbox-one/mortal-shell.webp",
+   "art_kind": "box",
+   "first_ts": 1788233624,
+   "last_ts": 1788233624,
+   "platform": "Microsoft Xbox One",
+   "status": "open",
+   "title": "Mortal Shell",
+   "voters": 1,
+   "votes": 1
   }
  ],
- "generated_ts": 1788232409,
+ "generated_ts": 1788233912,
  "page_size": 60,
  "schema": 1,
  "site": "RetroSai Backlog",
  "stats": {
-  "art": 5,
-  "art_box": 5,
+  "art": 6,
+  "art_box": 6,
   "art_cart": 0,
   "art_none": 0,
   "corrupt_lines": 0,
   "edits_applied": 0,
-  "entries": 5,
+  "entries": 6,
   "first_ts": 1788210616,
-  "last_ts": 1788232156,
-  "open": 5,
-  "open_votes": 7,
-  "platforms": 5,
+  "last_ts": 1788233624,
+  "open": 6,
+  "open_votes": 8,
+  "platforms": 6,
   "played": 0,
   "skipped": 0,
   "unresolved": 0,
-  "vote_events": 7,
-  "votes": 7
+  "vote_events": 8,
+  "votes": 8
  },
  "tagline": "What chat voted for next."
 }
