@@ -44,30 +44,41 @@
    "title": "Kingsley's Adventure",
    "voters": 1,
    "votes": 1
+  },
+  {
+   "art": "art/microsoft-xbox/fatal-frame.webp",
+   "art_kind": "box",
+   "first_ts": 1788232156,
+   "last_ts": 1788232156,
+   "platform": "Microsoft Xbox",
+   "status": "open",
+   "title": "Fatal Frame",
+   "voters": 1,
+   "votes": 1
   }
  ],
- "generated_ts": 1788221007,
+ "generated_ts": 1788232409,
  "page_size": 60,
  "schema": 1,
  "site": "RetroSai Backlog",
  "stats": {
-  "art": 4,
-  "art_box": 4,
+  "art": 5,
+  "art_box": 5,
   "art_cart": 0,
   "art_none": 0,
   "corrupt_lines": 0,
   "edits_applied": 0,
-  "entries": 4,
+  "entries": 5,
   "first_ts": 1788210616,
-  "last_ts": 1788220799,
-  "open": 4,
-  "open_votes": 6,
-  "platforms": 4,
+  "last_ts": 1788232156,
+  "open": 5,
+  "open_votes": 7,
+  "platforms": 5,
   "played": 0,
   "skipped": 0,
   "unresolved": 0,
-  "vote_events": 6,
-  "votes": 6
+  "vote_events": 7,
+  "votes": 7
  },
  "tagline": "What chat voted for next."
 }
