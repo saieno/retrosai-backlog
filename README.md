@@ -3,9 +3,9 @@
 The community backlog for [twitch.tv/retrosaieno](https://twitch.tv/retrosaieno)
 -- the games chat has voted onto the pile, most-wanted first.
 
-Votes are cast two ways: the **Backlog Vote** channel-point reward, or Tokens
-spent in chat with `!buy backlog <game>`. `!backlogs` reads out the leaders
-live; this page is a snapshot.
+Votes are cast two ways: the **Add Game to Backlog** channel-point reward, or
+Tokens spent in chat with `!spend backlog <game>`. `!backlogs` reads out the
+leaders live; this page is a snapshot.
 
 * `index.html` - the ranked board, with cover art
 * `backlog.json` - the same data, if you want to do something else with it

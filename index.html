@@ -204,7 +204,7 @@ footer.foot{color:var(--ink3);font-size:.85rem;padding:26px 0 0;
 </style>
 </head>
 <body>
-<script id="sitedata" type="application/json">{"channel":"retrosaieno","entries":[{"art":"art/sega-genesis/tiny-toon-adventures-buster-s-hidden-treasure.webp","art_kind":"box","first_ts":1788212612,"last_ts":1788212728,"platform":"Sega Genesis","status":"open","title":"Tiny Toon Adventures: Buster's Hidden Treasure","voters":1,"votes":3},{"art":"art/sony-playstation/kingsley-s-adventure.webp","art_kind":"box","first_ts":1788220799,"last_ts":1788234399,"platform":"Sony PlayStation 1","status":"open","title":"Kingsley's Adventure","voters":2,"votes":2},{"art":"art/nintendo-64/conker-s-bad-fur-day.webp","art_kind":"box","first_ts":1788210616,"last_ts":1788210616,"platform":"Nintendo 64","status":"open","title":"Conker's Bad Fur Day","voters":1,"votes":1},{"art":"art/nintendo-gamecube/the-legend-of-zelda-twilight-princess.webp","art_kind":"box","first_ts":1788210724,"last_ts":1788210724,"platform":"Nintendo GameCube","status":"open","title":"The Legend of Zelda: Twilight Princess","voters":1,"votes":1},{"art":"art/microsoft-xbox/fatal-frame.webp","art_kind":"box","first_ts":1788232156,"last_ts":1788232156,"platform":"Microsoft Xbox","status":"open","title":"Fatal Frame","voters":1,"votes":1},{"art":"art/microsoft-xbox-one/mortal-shell.webp","art_kind":"box","first_ts":1788233624,"last_ts":1788233624,"platform":"Microsoft Xbox One","status":"open","title":"Mortal Shell","voters":1,"votes":1},{"art":"art/nintendo-wii/super-paper-mario.webp","art_kind":"box","first_ts":1788235316,"last_ts":1788235316,"platform":"Nintendo Wii","status":"open","title":"Super Paper Mario","voters":1,"votes":1}],"generated_ts":1788235417,"page_size":60,"schema":1,"site":"RetroSai Backlog","stats":{"art":7,"art_box":7,"art_cart":0,"art_none":0,"corrupt_lines":0,"edits_applied":0,"entries":7,"first_ts":1788210616,"last_ts":1788235316,"open":7,"open_votes":10,"platforms":7,"played":0,"skipped":0,"unresolved":0,"vote_events":10,"votes":10},"tagline":"What chat voted for next."}</script>
+<script id="sitedata" type="application/json">{"channel":"retrosaieno","entries":[{"art":"art/sega-genesis/tiny-toon-adventures-buster-s-hidden-treasure.webp","art_kind":"box","first_ts":1788212612,"last_ts":1788212728,"platform":"Sega Genesis","status":"open","title":"Tiny Toon Adventures: Buster's Hidden Treasure","voters":1,"votes":3},{"art":"art/sony-playstation/kingsley-s-adventure.webp","art_kind":"box","first_ts":1788220799,"last_ts":1788234399,"platform":"Sony PlayStation 1","status":"open","title":"Kingsley's Adventure","voters":2,"votes":2},{"art":"art/nintendo-64/conker-s-bad-fur-day.webp","art_kind":"box","first_ts":1788210616,"last_ts":1788210616,"platform":"Nintendo 64","status":"open","title":"Conker's Bad Fur Day","voters":1,"votes":1},{"art":"art/nintendo-gamecube/the-legend-of-zelda-twilight-princess.webp","art_kind":"box","first_ts":1788210724,"last_ts":1788210724,"platform":"Nintendo GameCube","status":"open","title":"The Legend of Zelda: Twilight Princess","voters":1,"votes":1},{"art":"art/microsoft-xbox/fatal-frame.webp","art_kind":"box","first_ts":1788232156,"last_ts":1788232156,"platform":"Microsoft Xbox","status":"open","title":"Fatal Frame","voters":1,"votes":1},{"first_ts":1788233624,"last_ts":1788233624,"platform":"","status":"open","title":"Mortal Shell II","voters":1,"votes":1},{"art":"art/nintendo-wii/super-paper-mario.webp","art_kind":"box","first_ts":1788235316,"last_ts":1788235316,"platform":"Nintendo Wii","status":"open","title":"Super Paper Mario","voters":1,"votes":1}],"generated_ts":1788248412,"page_size":60,"schema":1,"site":"RetroSai Backlog","stats":{"art":6,"art_box":6,"art_cart":0,"art_none":1,"corrupt_lines":0,"edits_applied":1,"entries":7,"first_ts":1788210616,"last_ts":1788235316,"open":7,"open_votes":10,"platforms":6,"played":0,"skipped":0,"unresolved":0,"vote_events":10,"votes":10},"tagline":"What chat voted for next."}</script>
 <header class="top">
   <div class="wrap">
     <a class="brand" href="./">
@@ -246,9 +246,9 @@ footer.foot{color:var(--ink3);font-size:.85rem;padding:26px 0 0;
   <h2>How a game gets on this list</h2>
   <div class="howto">
     <div class="card">
-      <b>Redeem <span class="cost">Backlog Vote</span></b>
+      <b>Redeem <span class="cost">Add Game to Backlog</span></b>
       <span>A channel-point reward on the stream. Type the game you want and it
-      lands here. Unrecognised titles are refunded.</span>
+      lands here (or stacks a vote on it). Unrecognised titles are refunded.</span>
     </div>
     <div class="card">
       <b>Spend <span class="cost">Tokens</span></b>
@@ -549,7 +549,7 @@ function paintChrome(){
   snap.appendChild(el('b', null, 'What this is'));
   snap.appendChild(el('span', null,
     'Games chat has voted onto the pile, most-wanted first. Votes come from the '
-    + 'Backlog Vote channel-point reward and from Tokens spent in chat.'));
+    + 'Add Game to Backlog channel-point reward and from Tokens spent in chat.'));
   if (when) snap.appendChild(el('span', 'dim', 'Snapshot taken ' + when));
 
   q('#foot').textContent = (DATA.site || 'RetroSai Backlog')
@@ -606,7 +606,7 @@ function paintBoard(){
     panel.appendChild(el('h2', null, 'Nothing on the pile yet'));
     var p = el('div', 'empty');
     p.appendChild(el('span', null,
-      'Nobody has voted for a game yet. Redeem Backlog Vote on the stream, or '
+      'Nobody has voted for a game yet. Redeem Add Game to Backlog on the stream, or '
       + 'type '));
     p.appendChild(el('code', null, '!spend backlog <game>'));
     p.appendChild(el('span', null, ' in chat, and the first game on this page is yours.'));
