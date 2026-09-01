@@ -33,30 +33,41 @@
    "title": "The Legend of Zelda: Twilight Princess",
    "voters": 1,
    "votes": 1
+  },
+  {
+   "art": "art/sony-playstation/kingsley-s-adventure.webp",
+   "art_kind": "box",
+   "first_ts": 1788220799,
+   "last_ts": 1788220799,
+   "platform": "Sony PlayStation 1",
+   "status": "open",
+   "title": "Kingsley's Adventure",
+   "voters": 1,
+   "votes": 1
   }
  ],
- "generated_ts": 1788212904,
+ "generated_ts": 1788221007,
  "page_size": 60,
  "schema": 1,
  "site": "RetroSai Backlog",
  "stats": {
-  "art": 3,
-  "art_box": 3,
+  "art": 4,
+  "art_box": 4,
   "art_cart": 0,
   "art_none": 0,
   "corrupt_lines": 0,
   "edits_applied": 0,
-  "entries": 3,
+  "entries": 4,
   "first_ts": 1788210616,
-  "last_ts": 1788212728,
-  "open": 3,
-  "open_votes": 5,
-  "platforms": 3,
+  "last_ts": 1788220799,
+  "open": 4,
+  "open_votes": 6,
+  "platforms": 4,
   "played": 0,
   "skipped": 0,
   "unresolved": 0,
-  "vote_events": 5,
-  "votes": 5
+  "vote_events": 6,
+  "votes": 6
  },
  "tagline": "What chat voted for next."
 }
