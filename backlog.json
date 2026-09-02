@@ -2,6 +2,17 @@
  "channel": "retrosaieno",
  "entries": [
   {
+   "art": "art/sony-playstation-2/under-the-skin.webp",
+   "art_kind": "box",
+   "first_ts": 1788367861,
+   "last_ts": 1788367995,
+   "platform": "Sony PlayStation 2",
+   "status": "open",
+   "title": "Under the Skin",
+   "voters": 6,
+   "votes": 11
+  },
+  {
    "art": "art/sega-genesis/tiny-toon-adventures-buster-s-hidden-treasure.webp",
    "art_kind": "box",
    "first_ts": 1788212612,
@@ -77,28 +88,28 @@
    "votes": 1
   }
  ],
- "generated_ts": 1788248412,
+ "generated_ts": 1788368051,
  "page_size": 60,
  "schema": 1,
  "site": "RetroSai Backlog",
  "stats": {
-  "art": 6,
-  "art_box": 6,
+  "art": 7,
+  "art_box": 7,
   "art_cart": 0,
   "art_none": 1,
   "corrupt_lines": 0,
   "edits_applied": 1,
-  "entries": 7,
+  "entries": 8,
   "first_ts": 1788210616,
-  "last_ts": 1788235316,
-  "open": 7,
-  "open_votes": 10,
-  "platforms": 6,
+  "last_ts": 1788367995,
+  "open": 8,
+  "open_votes": 21,
+  "platforms": 7,
   "played": 0,
   "skipped": 0,
   "unresolved": 0,
-  "vote_events": 10,
-  "votes": 10
+  "vote_events": 17,
+  "votes": 21
  },
  "tagline": "What chat voted for next."
 }
