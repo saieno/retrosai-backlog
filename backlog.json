@@ -2,6 +2,17 @@
  "channel": "retrosaieno",
  "entries": [
   {
+   "art": "art/sony-playstation-2/ratchet-clank.webp",
+   "art_kind": "box",
+   "first_ts": 1788542887,
+   "last_ts": 1788543004,
+   "platform": "Sony PlayStation 2",
+   "status": "open",
+   "title": "Ratchet & Clank",
+   "voters": 1,
+   "votes": 22
+  },
+  {
    "art": "art/sony-playstation-2/under-the-skin.webp",
    "art_kind": "box",
    "first_ts": 1788367861,
@@ -68,9 +79,11 @@
    "votes": 1
   },
   {
+   "art": "art/microsoft-xbox-one/mortal-shell-ii.webp",
+   "art_kind": "box",
    "first_ts": 1788233624,
    "last_ts": 1788233624,
-   "platform": "",
+   "platform": "Microsoft Xbox Series X|S",
    "status": "open",
    "title": "Mortal Shell II",
    "voters": 1,
@@ -86,30 +99,41 @@
    "title": "Super Paper Mario",
    "voters": 1,
    "votes": 1
+  },
+  {
+   "art": "art/sony-playstation-2/ratchet-clank-going-commando.webp",
+   "art_kind": "box",
+   "first_ts": 1788542940,
+   "last_ts": 1788542940,
+   "platform": "Sony PlayStation 2",
+   "status": "open",
+   "title": "Ratchet & Clank: Going Commando",
+   "voters": 1,
+   "votes": 1
   }
  ],
- "generated_ts": 1788368051,
+ "generated_ts": 1788543127,
  "page_size": 60,
  "schema": 1,
  "site": "RetroSai Backlog",
  "stats": {
-  "art": 7,
-  "art_box": 7,
+  "art": 10,
+  "art_box": 10,
   "art_cart": 0,
-  "art_none": 1,
+  "art_none": 0,
   "corrupt_lines": 0,
-  "edits_applied": 1,
-  "entries": 8,
+  "edits_applied": 2,
+  "entries": 10,
   "first_ts": 1788210616,
-  "last_ts": 1788367995,
-  "open": 8,
-  "open_votes": 21,
-  "platforms": 7,
+  "last_ts": 1788543004,
+  "open": 10,
+  "open_votes": 44,
+  "platforms": 8,
   "played": 0,
   "skipped": 0,
   "unresolved": 0,
-  "vote_events": 17,
-  "votes": 21
+  "vote_events": 22,
+  "votes": 44
  },
  "tagline": "What chat voted for next."
 }
