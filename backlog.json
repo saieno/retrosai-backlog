@@ -2,6 +2,17 @@
  "channel": "retrosaieno",
  "entries": [
   {
+   "art": "art/sony-playstation-2/under-the-skin.webp",
+   "art_kind": "box",
+   "first_ts": 1788367861,
+   "last_ts": 1788797634,
+   "platform": "Sony PlayStation 2",
+   "status": "open",
+   "title": "Under the Skin",
+   "voters": 6,
+   "votes": 26
+  },
+  {
    "art": "art/sony-playstation-2/ratchet-clank.webp",
    "art_kind": "box",
    "first_ts": 1788542887,
@@ -13,15 +24,15 @@
    "votes": 22
   },
   {
-   "art": "art/sony-playstation-2/under-the-skin.webp",
+   "art": "art/nintendo-switch/hollow-knight.webp",
    "art_kind": "box",
-   "first_ts": 1788367861,
-   "last_ts": 1788367995,
-   "platform": "Sony PlayStation 2",
+   "first_ts": 1788797395,
+   "last_ts": 1788797566,
+   "platform": "Nintendo Switch",
    "status": "open",
-   "title": "Under the Skin",
-   "voters": 6,
-   "votes": 11
+   "title": "Hollow Knight",
+   "voters": 2,
+   "votes": 9
   },
   {
    "art": "art/sega-genesis/tiny-toon-adventures-buster-s-hidden-treasure.webp",
@@ -112,28 +123,28 @@
    "votes": 1
   }
  ],
- "generated_ts": 1788543127,
+ "generated_ts": 1788797677,
  "page_size": 60,
  "schema": 1,
  "site": "RetroSai Backlog",
  "stats": {
-  "art": 10,
-  "art_box": 10,
+  "art": 11,
+  "art_box": 11,
   "art_cart": 0,
   "art_none": 0,
   "corrupt_lines": 0,
   "edits_applied": 2,
-  "entries": 10,
+  "entries": 11,
   "first_ts": 1788210616,
-  "last_ts": 1788543004,
-  "open": 10,
-  "open_votes": 44,
-  "platforms": 8,
+  "last_ts": 1788797634,
+  "open": 11,
+  "open_votes": 68,
+  "platforms": 9,
   "played": 0,
   "skipped": 0,
   "unresolved": 0,
-  "vote_events": 22,
-  "votes": 44
+  "vote_events": 27,
+  "votes": 68
  },
  "tagline": "What chat voted for next."
 }
