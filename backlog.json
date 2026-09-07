@@ -121,30 +121,41 @@
    "title": "Ratchet & Clank: Going Commando",
    "voters": 1,
    "votes": 1
+  },
+  {
+   "art": "art/sony-playstation-2/jak-and-daxter-the-precursor-legacy.webp",
+   "art_kind": "box",
+   "first_ts": 1788800909,
+   "last_ts": 1788800909,
+   "platform": "Sony PlayStation 2",
+   "status": "open",
+   "title": "Jak and Daxter: The Precursor Legacy",
+   "voters": 1,
+   "votes": 1
   }
  ],
- "generated_ts": 1788797677,
+ "generated_ts": 1788800979,
  "page_size": 60,
  "schema": 1,
  "site": "RetroSai Backlog",
  "stats": {
-  "art": 11,
-  "art_box": 11,
+  "art": 12,
+  "art_box": 12,
   "art_cart": 0,
   "art_none": 0,
   "corrupt_lines": 0,
   "edits_applied": 2,
-  "entries": 11,
+  "entries": 12,
   "first_ts": 1788210616,
-  "last_ts": 1788797634,
-  "open": 11,
-  "open_votes": 68,
+  "last_ts": 1788800909,
+  "open": 12,
+  "open_votes": 69,
   "platforms": 9,
   "played": 0,
   "skipped": 0,
   "unresolved": 0,
-  "vote_events": 27,
-  "votes": 68
+  "vote_events": 28,
+  "votes": 69
  },
  "tagline": "What chat voted for next."
 }
