@@ -57,6 +57,17 @@
    "votes": 2
   },
   {
+   "art": "art/nintendo-wii/super-paper-mario.webp",
+   "art_kind": "box",
+   "first_ts": 1788235316,
+   "last_ts": 1790014357,
+   "platform": "Nintendo Wii",
+   "status": "open",
+   "title": "Super Paper Mario",
+   "voters": 1,
+   "votes": 2
+  },
+  {
    "art": "art/nintendo-64/conker-s-bad-fur-day.webp",
    "art_kind": "box",
    "first_ts": 1788210616,
@@ -101,17 +112,6 @@
    "votes": 1
   },
   {
-   "art": "art/nintendo-wii/super-paper-mario.webp",
-   "art_kind": "box",
-   "first_ts": 1788235316,
-   "last_ts": 1788235316,
-   "platform": "Nintendo Wii",
-   "status": "open",
-   "title": "Super Paper Mario",
-   "voters": 1,
-   "votes": 1
-  },
-  {
    "art": "art/sony-playstation-2/ratchet-clank-going-commando.webp",
    "art_kind": "box",
    "first_ts": 1788542940,
@@ -134,7 +134,7 @@
    "votes": 1
   }
  ],
- "generated_ts": 1788800979,
+ "generated_ts": 1790014541,
  "page_size": 60,
  "schema": 1,
  "site": "RetroSai Backlog",
@@ -147,15 +147,15 @@
   "edits_applied": 2,
   "entries": 12,
   "first_ts": 1788210616,
-  "last_ts": 1788800909,
+  "last_ts": 1790014357,
   "open": 12,
-  "open_votes": 69,
+  "open_votes": 70,
   "platforms": 9,
   "played": 0,
   "skipped": 0,
   "unresolved": 0,
-  "vote_events": 28,
-  "votes": 69
+  "vote_events": 29,
+  "votes": 70
  },
  "tagline": "What chat voted for next."
 }
